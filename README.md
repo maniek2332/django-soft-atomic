@@ -21,7 +21,7 @@ by allowing certain exceptions to exit atomic block just like sucessful executio
 
 ### With PIP
 
-Execute: `pip install django-soft-atomic`
+TBD.
 
 ### Manual
 
