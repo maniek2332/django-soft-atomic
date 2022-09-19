@@ -22,7 +22,7 @@ def _process_payment(amount):
 
 
 @pytest.mark.django_db
-def test_models():
+def test_models_sanity_check():
     assert PaymentRequest.objects.count() == 0
 
 
@@ -36,17 +36,17 @@ def test_successful_operation():
 @pytest.mark.django_db
 def test_failed_operation():
     with pytest.raises(PaymentProcessingException):
-        with django.db.transaction.atomic():
+        with soft_atomic(safe_exceptions=(PaymentProcessingException,)):
             _process_payment(Decimal("150.00"))
-    assert not PaymentRequest.objects.filter(success=False).exists()
+    assert PaymentRequest.objects.exists()
 
 
 @pytest.mark.django_db
 def test_failed_operation_with_regular_atomic():
     with pytest.raises(PaymentProcessingException):
-        with soft_atomic(safe_exceptions=(PaymentProcessingException,)):
+        with django.db.transaction.atomic():
             _process_payment(Decimal("150.00"))
-    assert PaymentRequest.objects.exists()
+    assert not PaymentRequest.objects.filter(success=False).exists()
 
 
 @pytest.mark.django_db
