@@ -1,0 +1,31 @@
+[project]
+name = "django_soft_atomic"
+authors = [
+  { name="Mariusz Okulanis", email="mariusz.okulanis@gmail.com" },
+]
+description = "A more forgiving variation of `django`'s `atomic`, allowing you to pass some exceptions through atomic block without rollback."
+readme = "README.md"
+license = { file="LICENSE" }
+requires-python = ">=3.6"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+dynamic = ["version"]
+
+[project.urls]
+"Homepage" = "https://github.com/maniek2332/django_soft_atomic"
+"Bug Tracker" = "https://github.com/maniek2332/django_soft_atomic/issues"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build]
+include = [
+    "django_soft_atomic.py"
+]
+
+[tool.hatch.version]
+path = "django_soft_atomic.py"

@@ -21,7 +21,7 @@ by allowing certain exceptions to exit atomic block just like sucessful executio
 
 ### With PIP
 
-TBD.
+Execute: `pip install django_soft_atomic`
 
 ### Manual
 
@@ -41,6 +41,8 @@ This "package" constists of single function/decorator/context-manager:
 ## Example
 
 ```
+from django_soft_atomic import soft_atomic
+
 class PaymentProcessingException(Exception):
     pass
 
