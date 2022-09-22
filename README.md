@@ -15,7 +15,7 @@ by allowing certain exceptions to exit atomic block just like sucessful executio
 ## Requirements
 
  * Python 3.6+
- * Django 3.12+
+ * Django 3.2+
 
 ## Installation
 
