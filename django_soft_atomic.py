@@ -20,7 +20,9 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-__version__ = '1.0.0'
+__version__ = '1.1.0'
+
+from typing import Tuple, Type
 
 import django.db.transaction
 
@@ -34,7 +36,7 @@ class SoftAtomic(django.db.transaction.Atomic):
     to database.)
     """
 
-    # list of exceptions which should handled as standard Atomic would do
+    # collection of exceptions which should handled as standard Atomic would do
     # (execute rollback)
     FATAL_EXCEPTIONS = (django.db.Error,)
 
@@ -53,7 +55,10 @@ class SoftAtomic(django.db.transaction.Atomic):
             super(SoftAtomic, self).__exit__(exc_type, exc_value, traceback)
 
 
-def soft_atomic(using=None, savepoint=True, durable=False, *, safe_exceptions=(Exception,)):
+def soft_atomic(
+        using: str = None, savepoint: bool = True, durable: bool = False,
+        *, safe_exceptions: Tuple[Type[BaseException]] = (Exception,)
+):
     if callable(using):
         return SoftAtomic(django.db.transaction.DEFAULT_DB_ALIAS, savepoint, durable, safe_exceptions)(using)
     return SoftAtomic(using, savepoint, durable, safe_exceptions)
